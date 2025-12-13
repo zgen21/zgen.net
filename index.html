@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GridRider – Smart Last-Mile Network for Riders & Investors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="GridRider is a smart last-mile delivery network for India. Riders earn more per kilometer, investors get real-time, transparent returns with live P&L dashboards and AI-powered controls."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #06091f;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --accent: #5b8dff;
+      --accent-soft: rgba(91, 141, 255, 0.35);
+      --accent-2: #00e0a4;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --danger: #fb7185;
+      --success: #4ade80;
+      --warning: #facc15;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.25), transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.18), transparent 55%),
+        #020617;
+      color: var(--text-main);
+    }
+
+    .max-w {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAVBAR */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(22px);
+      background: linear-gradient(
+        to bottom,
+        rgba(2, 6, 23, 0.92),
+        rgba(2, 6, 23, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e5f2ff, #2563eb, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .brand-text-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 1.1rem;
+    }
+
+    .brand-text-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.2s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-main);
+      transition: all 0.18s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      box-shadow: 0 18px 35px rgba(79, 70, 229, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 22px 45px rgba(79, 70, 229, 0.7);
+    }
+
+    .btn-outline {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .nav-mobile-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--text-main);
+      position: relative;
+    }
+
+    .nav-mobile-toggle span::before,
+    .nav-mobile-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--text-main);
+    }
+
+    .nav-mobile-toggle span::before {
+      top: -5px;
+    }
+
+    .nav-mobile-toggle span::after {
+      top: 5px;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 3.5rem 0 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0%, rgba(59, 130, 246, 0.4), transparent 60%);
+      border: 1px solid rgba(129, 140, 248, 0.4);
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      margin-bottom: 1rem;
+    }
+
+    .eyebrow-pill {
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.67rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      border: 1px solid rgba(45, 212, 191, 0.35);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3.2vw, 3.1rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(120deg, #60a5fa, #e879f9, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-subtitle strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-meta-badge {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.75);
+      color: #e5e7eb;
+    }
+
+    /* Right side: counters + mockup */
+
+    .hero-panel {
+      border-radius: 26px;
+      background: radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.4), transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(232, 121, 249, 0.4), transparent 60%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-soft);
+      padding: 1.35rem 1.35rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.45) 0, transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(129, 140, 248, 0.45) 0, transparent 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-panel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-card {
+      border-radius: 16px;
+      padding: 0.85rem 0.9rem;
+      background: radial-gradient(circle at 0 0, rgba(37, 99, 235, 0.2), transparent 70%),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .stat-label {
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .stat-number {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .stat-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border-radius: 999px;
+      padding: 0.12rem 0.4rem;
+      font-size: 0.63rem;
+    }
+
+    .stat-pill.success {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+    }
+
+    .stat-pill.neutral {
+      background: rgba(148, 163, 184, 0.16);
+      color: #e5e7eb;
+    }
+
+    .hero-mini-map {
+      margin-top: 0.6rem;
+      border-radius: 14px;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.7rem;
+    }
+
+    .mini-map-badge {
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+
+    .mini-map-body {
+      height: 140px;
+      border-radius: 12px;
+      background-image: linear-gradient(
+          rgba(30, 64, 175, 0.28) 1px,
+          transparent 1px
+        ),
+        linear-gradient(90deg, rgba(30, 64, 175, 0.28) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-position: -4px -4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-city {
+      position: absolute;
+      padding: 0.12rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.9);
+    }
+
+    .mini-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #16a34a);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .mini-pulse {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      animation: ping 1.6s infinite;
+      opacity: 0.7;
+    }
+
+    .mini-route {
+      position: absolute;
+      width: 80px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0), #38bdf8, rgba(56, 189, 248, 0));
+      top: 64px;
+      left: 48px;
+      opacity: 0.7;
+    }
+
+    .mini-footer {
+      margin-top: 0.55rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .mini-footer span strong {
+      color: #e5e7eb;
+    }
+
+    @keyframes ping {
+      0% {
+        transform: scale(0.4);
+        opacity: 0.8;
+      }
+      80% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* SECTIONS GENERIC */
+
+    section {
+      padding: 3.5rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+      color: var(--accent-2);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    /* RIDER SECTION */
+
+    .rider-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .feature-card {
+      border-radius: var(--radius-md);
+      padding: 0.95rem;
+      background: linear-gradient(
+          145deg,
+          rgba(37, 99, 235, 0.24),
+          transparent 50%
+        ),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.85);
+    }
+
+    .feature-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .feature-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-body {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .mockup-phone {
+      border-radius: 26px;
+      padding: 0.35rem;
+      background: linear-gradient(135deg, #1e293b, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      width: 100%;
+      max-width: 320px;
+      margin-left: auto;
+      box-shadow: 0 25px 50px rgba(15, 23, 42, 1);
+      position: relative;
+    }
+
+    .phone-inner {
+      border-radius: 22px;
+      padding: 0.8rem;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent 60%),
+        #020617;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      height: 520px;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.7rem;
+    }
+
+    .phone-notch {
+      width: 40%;
+      height: 10px;
+      background: #020617;
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 0.55rem;
+    }
+
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+    }
+
+    .phone-chip {
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.6rem;
+    }
+
+    .order-card {
+      border-radius: 12px;
+      padding: 0.45rem 0.5rem;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      margin-bottom: 0.35rem;
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+      font-size: 0.68rem;
+    }
+
+    .status-pill {
+      padding: 0.12rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(34, 197, 94, 0.55);
+    }
+
+    .order-body {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .order-body strong {
+      color: #e5e7eb;
+    }
+
+    .order-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.64rem;
+    }
+
+    .order-footer span {
+      color: var(--text-muted);
+    }
+
+    .order-main-btn {
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-weight: 600;
+      font-size: 0.63rem;
+      border: none;
+    }
+
+    .phone-section-title {
+      font-size: 0.72rem;
+      font-weight: 500;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .voice-bar {
+      margin-top: auto;
+      border-radius: 999px;
+      padding: 0.25rem 0.55rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .voice-hints {
+      display: flex;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+    }
+
+    .voice-hints span {
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    .voice-mic-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #e5e7eb, #fb7185, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(248, 113, 113, 0.9);
+      font-size: 0.8rem;
+    }
+
+    /* INVESTOR SECTION */
+
+    .investor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.05fr);
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .bullet-list {
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 0.45rem;
+      align-items: flex-start;
+    }
+
+    .bullet-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #60a5fa, #22c55e);
+      margin-top: 0.2rem;
+    }
+
+    .investor-dashboard {
+      border-radius: 22px;
+      padding: 0.9rem;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(244, 114, 182, 0.18), transparent 60%),
+        rgba(15, 23, 42, 0.97);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 22px 45px rgba(15, 23, 42, 1);
+      font-size: 0.7rem;
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .dash-title {
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .dash-chip {
+      padding: 0.12rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    .dash-metrics {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr 0.9fr;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .dash-card {
+      border-radius: 12px;
+      padding: 0.5rem;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(30, 64, 175, 0.8);
+    }
+
+    .dash-label {
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .dash-main-number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.05rem;
+    }
+
+    .dash-trend {
+      font-size: 0.63rem;
+      color: var(--success);
+    }
+
+    .dash-trend.negative {
+      color: var(--danger);
+    }
+
+    .dash-chart {
+      margin-bottom: 0.6rem;
+      border-radius: 12px;
+      padding: 0.5rem;
+      background: rgba(15, 23, 42, 0.97);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .dash-chart-lines {
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: linear-gradient(
+          rgba(31, 41, 55, 0.9) 1px,
+          transparent 1px
+        ),
+        linear-gradient(90deg, rgba(31, 41, 55, 0.9) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .dash-line-rev,
+    .dash-line-cost {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+    }
+
+    .dash-line-rev {
+      top: 20px;
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0), #22c55e, rgba(34, 197, 94, 0));
+    }
+
+    .dash-line-cost {
+      bottom: 12px;
+      background: linear-gradient(90deg, rgba(248, 113, 113, 0), #fb7185, rgba(248, 113, 113, 0));
+    }
+
+    .dash-alerts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .alert-pill {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.3rem 0.5rem;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.62rem;
+    }
+
+    .tag {
+      padding: 0.08rem 0.35rem;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+
+    .tag.critical {
+      border-color: rgba(248, 113, 113, 0.8);
+      color: var(--danger);
+    }
+
+    .tag.opportunity {
+      border-color: rgba(52, 211, 153, 0.8);
+      color: var(--success);
+    }
+
+    /* HOW IT WORKS */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.4rem;
+      font-size: 0.8rem;
+    }
+
+    .step-card {
+      border-radius: 16px;
+      padding: 0.9rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .step-index {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      margin-bottom: 0.35rem;
+    }
+
+    .step-title {
+      font-size: 0.86rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-body {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* SOCIAL PROOF */
+
+    .social-proof {
+      border-radius: 22px;
+      padding: 1.3rem 1.3rem 1.1rem;
+      background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.18),
+          rgba(16, 185, 129, 0.18)
+        ),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      display: grid;
+      grid-template-columns: 1.45fr 1.1fr;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: 0 25px 50px rgba(15, 23, 42, 1);
+    }
+
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.4rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0.7rem 0 0.4rem;
+    }
+
+    .logo-pill {
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .testimonials {
+      display: grid;
+      gap: 0.6rem;
+      font-size: 0.76rem;
+    }
+
+    .quote-card {
+      border-radius: 14px;
+      padding: 0.7rem 0.8rem;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .quote-text {
+      font-size: 0.78rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .quote-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* CTA + FOOTER */
+
+    .final-cta {
+      text-align: center;
+      padding: 3rem 0 2.2rem;
+    }
+
+    .final-cta h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .final-cta p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .store-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .store-badge {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .store-badge span {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 1.4rem 0 2rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .rider-layout,
+      .investor-layout,
+      .social-proof {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .mockup-phone {
+        margin: 1.2rem auto 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner {
+        padding: 0.75rem 0.5rem;
+      }
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+      .nav-mobile-toggle {
+        display: inline-flex;
+      }
+      .hero {
+        padding-top: 2.5rem;
+      }
+      .hero-grid {
+        gap: 2rem;
+      }
+      .hero-panel {
+        margin-top: 0.8rem;
+      }
+      .card-grid-3,
+      .steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .social-proof {
+        padding: 1.1rem 1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .card-grid-3,
+      .steps-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .max-w {
+        padding: 0 1.1rem;
+      }
+      .hero-panel,
+      .social-proof {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <header class="nav">
+      <div class="max-w nav-inner">
+        <div class="brand">
+          <div class="brand-badge">GR</div>
+          <div>
+            <div class="brand-text-main">GridRider</div>
+            <div class="brand-text-sub">Smart Last‑Mile Network</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#riders">For Riders</a>
+          <a href="#investors">For Investors</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#stories">Stories</a>
+        </nav>
+        <div class="nav-cta">
+          <button class="btn btn-outline" onclick="scrollToSection('investors')">
+            Investor Demo
+          </button>
+          <button class="btn btn-primary" onclick="scrollToSection('riders')">
+            Become a Rider
+          </button>
+          <button class="nav-mobile-toggle" aria-label="Open menu">
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="max-w hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-pill">Built for Indian last‑mile</span>
+              <span>Real‑time, data‑driven delivery network</span>
+            </div>
+            <h1 class="hero-title">
+              Every kilometer, <span class="highlight">more earnings</span>. <br />
+              Every city, <span class="highlight">live control</span>.
+            </h1>
+            <p class="hero-subtitle">
+              <strong>Riders ke liye high earnings</strong> with voice‑first app &amp; smart routing.
+              <br />
+              <strong>Investors ke liye transparent returns</strong> with live P&amp;L meters &amp; AI alerts per city.
+            </p>
+            <div class="hero-ctas">
+              <button class="btn btn-primary" onclick="scrollToSection('riders')">
+                🚀 Start as Rider
+              </button>
+              <button class="btn btn-outline" onclick="scrollToSection('investors')">
+                📈 View Investor Controls
+              </button>
+            </div>
+            <div class="hero-meta">
+              <span class="hero-meta-badge">Available in Bangalore • Delhi NCR • Pune</span>
+              <span>⏱ Onboard &amp; earn within 48 hours</span>
+            </div>
+          </div>
+
+          <!-- Right Hero Panel -->
+          <div class="hero-panel" aria-label="Live network overview">
+            <div class="hero-panel-top">
+              <div>
+                <div class="panel-label">Live network performance</div>
+                <div style="font-size:0.74rem;color:var(--text-muted);">
+                  Updated every few seconds from real‑time rider data.
+                </div>
+              </div>
+              <div class="panel-tag">Investors · Operators · Riders</div>
+            </div>
+            <div class="hero-stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Rides completed today</div>
+                <div class="stat-number counter" data-target="12483">0</div>
+                <div class="stat-sub">
+                  <span class="stat-pill success">+18% vs last week</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Active riders now</div>
+                <div class="stat-number counter" data-target="1287">0</div>
+                <div class="stat-sub">Across 3 cities &amp; 27 micro‑zones</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">On‑time deliveries</div>
+                <div class="stat-number counter" data-target="98.3" data-decimals="1">0</div>
+                <div class="stat-sub">
+                  <span class="stat-pill success">SLA protected</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">CO₂ saved vs legacy</div>
+                <div class="stat-number counter" data-target="14.2" data-decimals="1">0</div>
+                <div class="stat-sub">
+                  Tonnes this month
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-mini-map">
+              <div class="mini-map-header">
+                <span>Live rider heatmap</span>
+                <span class="mini-map-badge">AI‑routed · Surge‑aware</span>
+              </div>
+              <div class="mini-map-body">
+                <div class="mini-city" style="top:22px;left:32px;">
+                  <span class="mini-dot"></span>
+                  <span>HSR · 112 riders</span>
+                </div>
+                <div class="mini-city" style="bottom:18px;right:26px;">
+                  <span class="mini-dot"></span>
+                  <span>Koramangala · 97</span>
+                </div>
+                <div class="mini-pulse" style="top:46px;right:72px;"></div>
+                <div class="mini-route"></div>
+              </div>
+              <div class="mini-footer">
+                <span>Voice command enabled in rider app</span>
+                <span><strong>GridRider Control</strong> · Live P&amp;L per zone</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIDERS SECTION -->
+      <section id="riders">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-kicker">For riders</div>
+            <h2 class="section-title">Designed for earnings, not just downloads.</h2>
+            <p class="section-subtitle">
+              Smart batching, voice commands and crew‑based incentives. Kam wait time, zyada
+              earnings – with full daily transparency.
+            </p>
+          </div>
+
+          <div class="rider-layout">
+            <div>
+              <div class="card-grid-3">
+                <div class="feature-card">
+                  <div class="feature-icon">₹</div>
+                  <div class="feature-title">Max earnings per kilometre</div>
+                  <div class="feature-body">
+                    Smart routing, batching and surge boosters – so idle time kam, payout high.
+                  </div>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">🎙</div>
+                  <div class="feature-title">Voice‑first flow</div>
+                  <div class="feature-body">
+                    “Start next order”, “Navigate to pickup”, “Mark delivered” – bina screen dekhe
+                    pura day handle karo.
+                  </div>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">🤝</div>
+                  <div class="feature-title">Crew = bonus system</div>
+                  <div class="feature-body">
+                    Apni crew ke saath milke targets hit karo, weekly group rewards unlock karo –
+                    sab app me live.
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:1.4rem;">
+                <button class="btn btn-primary" onclick="scrollToSection('cta')">
+                  Start earning this week
+                </button>
+                <span style="font-size:0.78rem;color:var(--text-muted);margin-left:0.6rem;">
+                  Simple KYC · No joining fee · Weekly payouts
+                </span>
+              </div>
+            </div>
+
+            <!-- Phone mockup -->
+            <div class="mockup-phone" aria-label="Rider app preview">
+              <div class="phone-inner">
+                <div class="phone-notch"></div>
+                <div class="phone-header">
+                  <span>📍 Bangalore · HSR</span>
+                  <span class="phone-chip">Today: ₹1,240</span>
+                </div>
+
+                <div class="phone-section-title">Today’s orders</div>
+
+                <div class="order-card">
+                  <div class="order-top">
+                    <span>#ORD 9214</span>
+                    <span class="status-pill">LIVE</span>
+                  </div>
+                  <div class="order-body">
+                    <strong>Zomato Hub, HSR</strong> → Brigade Road · 5.2 km
+                  </div>
+                  <div class="order-footer">
+                    <span>₹145 · 18 min · Prepaid</span>
+                    <button class="order-main-btn">Start pickup</button>
+                  </div>
+                </div>
+
+                <div class="order-card">
+                  <div class="order-top">
+                    <span>#ORD 9207</span>
+                    <span class="status-pill" style="background:rgba(59,130,246,0.15);color:#60a5fa;border-color:#60a5fa;">
+                      ROUTE
+                    </span>
+                  </div>
+                  <div class="order-body">
+                    <strong>Cloud Kitchen, BTM</strong> → Koramangala · 3.1 km
+                  </div>
+                  <div class="order-footer">
+                    <span>₹112 · 12 min · COD</span>
+                    <button class="order-main-btn" style="background:linear-gradient(135deg,#60a5fa,#4f46e5);color:#e5e7eb;">
+                      Navigate
+                    </button>
+                  </div>
+                </div>
+
+                <div class="phone-section-title">Incentives</div>
+                <div class="order-card" style="border-style:dashed;">
+                  <div class="order-body">
+                    <strong>Hit ₹1,500 today → +₹100 bonus</strong>
+                    <br />
+                    Progress: ₹1,240 / ₹1,500
+                  </div>
+                  <div
+                    style="width:100%;height:5px;border-radius:999px;background:#0f172a;overflow:hidden;margin-top:0.15rem;"
+                  >
+                    <div style="width:82%;height:100%;background:linear-gradient(90deg,#22c55e,#4ade80);"></div>
+                  </div>
+                </div>
+
+                <div class="voice-bar">
+                  <div class="voice-hints">
+                    <span>“Start next order”</span>
+                    <span>“Navigate to pickup”</span>
+                  </div>
+                  <div class="voice-mic-btn">🎙</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INVESTORS / OWNERS -->
+      <section id="investors">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-kicker">For investors &amp; fleet owners</div>
+            <h2 class="section-title">Live P&amp;L, rider control and AI alerts in one screen.</h2>
+            <p class="section-subtitle">
+              No more blind capital. See exactly how each city, hub and rider group is performing –
+              and change incentives or controls with one click or one voice command.
+            </p>
+          </div>
+
+          <div class="investor-layout">
+            <div>
+              <div class="bullet-list">
+                <div class="bullet-item">
+                  <div class="bullet-dot"></div>
+                  <div>
+                    <strong>Live profit/loss meter per city, per day.</strong><br />
+                    Margin tracking that updates with every order – broken down into rider payout,
+                    fuel, penalties and incentives.
+                  </div>
+                </div>
+                <div class="bullet-item">
+                  <div class="bullet-dot"></div>
+                  <div>
+                    <strong>Rider control panel with map‑view.</strong><br />
+                    See who’s online, who’s at risk and who’s top‑performing. Pause, boost or reassign
+                    riders instantly.
+                  </div>
+                </div>
+                <div class="bullet-item">
+                  <div class="bullet-dot"></div>
+                  <div>
+                    <strong>AI alerts that protect margins.</strong><br />
+                    Demand spikes, SLA risk, fraud‑like patterns – sab automatic flags ke through aata
+                    hai with suggested actions.
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:1.4rem;display:flex;gap:0.7rem;flex-wrap:wrap;">
+                <button class="btn btn-primary">
+                  Book investor demo
+                </button>
+                <button class="btn btn-outline">
+                  Download sample P&amp;L report
+                </button>
+              </div>
+            </div>
+
+            <!-- Dashboard mockup -->
+            <div class="investor-dashboard" aria-label="Investor dashboard preview">
+              <div class="dash-header">
+                <div>
+                  <div class="dash-title">GridRider Control · Overview</div>
+                  <div style="font-size:0.64rem;color:var(--text-muted);">
+                    Today · Bangalore · 08:42 PM live snapshot
+                  </div>
+                </div>
+                <div class="dash-chip">Voice control: ON 🎙</div>
+              </div>
+
+              <div class="dash-metrics">
+                <div class="dash-card">
+                  <div class="dash-label">Today’s P&amp;L</div>
+                  <div class="dash-main-number">+₹1,84,230</div>
+                  <div class="dash-trend">Margin 14.2% · +2.3% vs yesterday</div>
+                </div>
+                <div class="dash-card">
+                  <div class="dash-label">Network summary</div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.64rem;">
+                    <span>Orders: <strong>18,432</strong></span>
+                    <span>Riders online: <strong>1,287</strong></span>
+                  </div>
+                  <div style="margin-top:0.2rem;font-size:0.64rem;color:var(--text-muted);">
+                    On‑time: <strong style="color:var(--success);">98.3%</strong> · Penalties: <strong
+                      style="color:var(--danger);"
+                      >0.7%</strong
+                    >
+                  </div>
+                </div>
+                <div class="dash-card">
+                  <div class="dash-label">Cost breakdown</div>
+                  <div style="font-size:0.64rem;color:var(--text-muted);">
+                    Rider payouts: <strong>63%</strong><br />
+                    Incentives: <strong>9%</strong><br />
+                    Ops &amp; fuel: <strong>21%</strong><br />
+                    Other: <strong>7%</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dash-chart">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                  <span style="font-size:0.68rem;">Revenue vs Cost (today)</span>
+                  <span style="font-size:0.64rem;color:var(--text-muted);">15‑min buckets · Live</span>
+                </div>
+                <div class="dash-chart-lines">
+                  <div class="dash-line-rev"></div>
+                  <div class="dash-line-cost"></div>
+                </div>
+              </div>
+
+              <div class="dash-alerts">
+                <div class="alert-pill">
+                  <span>Demand spike in Koramangala · +32% vs last hour</span>
+                  <span>
+                    <span class="tag opportunity">Opportunity</span>
+                    <span style="margin-left:0.4rem;">Apply +15% incentive</span>
+                  </span>
+                </div>
+                <div class="alert-pill">
+                  <span>P&amp;L dip in Whitefield · margin 5% (was 12%)</span>
+                  <span>
+                    <span class="tag critical">Critical</span>
+                    <span style="margin-left:0.4rem;">Review riders · 3 flagged</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how-it-works">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-kicker">How it works</div>
+            <h2 class="section-title">One network · Two experiences · Full transparency.</h2>
+            <p class="section-subtitle">
+              GridRider connects riders, merchants and capital into a single real‑time system.
+              Riders get stable work, investors get clear unit economics, customers get on‑time
+              deliveries.
+            </p>
+          </div>
+
+          <h3 style="font-size:0.9rem;margin-bottom:0.35rem;">For riders</h3>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-index">1</div>
+              <div class="step-title">Sign up &amp; verify</div>
+              <div class="step-body">
+                Basic KYC + short in‑app training. Preferred areas select karo, timing choose karo –
+                app tumhare pattern ke hisaab se plan karta hai.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-index">2</div>
+              <div class="step-title">Get nearby orders</div>
+              <div class="step-body">
+                Smart batching + routing se aapko close‑by pickups milte hain. Voice command se bina
+                screen scroll kiye pura shift control karo.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-index">3</div>
+              <div class="step-title">Track earnings &amp; bonuses</div>
+              <div class="step-body">
+                Har delivery ke baad earnings update hoti hain. Daily target, weekly crew bonus aur
+                surge boosters – sab ek hi screen pe.
+              </div>
+            </div>
+          </div>
+
+          <h3 style="font-size:0.9rem;margin:1.8rem 0 0.35rem;">For investors &amp; owners</h3>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-index">1</div>
+              <div class="step-title">Connect your fleet / capital</div>
+              <div class="step-body">
+                City choose karo, starting capital ya existing fleet details daalo. Hum baseline unit
+                economics model karte hain.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-index">2</div>
+              <div class="step-title">Configure incentives &amp; rules</div>
+              <div class="step-body">
+                City, zone aur time‑of‑day ke hisaab se incentives set karo. Risk rules &amp;
+                penalties define karo – AI unhe live enforce karega.
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-index">3</div>
+              <div class="step-title">Monitor, tweak, scale</div>
+              <div class="step-body">
+                Live P&amp;L, AI alerts, rider performance dashboards. Jo kaam karta hai usse scale
+                karo, jo nahi karta usse turant tweak karo.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOCIAL PROOF / STORIES -->
+      <section id="stories">
+        <div class="max-w">
+          <div class="social-proof">
+            <div>
+              <div class="section-kicker">Trusted in the field</div>
+              <h2 class="section-title" style="margin-bottom:0.6rem;">
+                Riders, partners and operators already on GridRider.
+              </h2>
+              <p class="section-subtitle" style="margin-bottom:0.5rem;">
+                From cloud kitchens to quick commerce brands, GridRider plugs into existing
+                operations without friction.
+              </p>
+
+              <div class="logo-row">
+                <span class="logo-pill">UrbanCart Foods</span>
+                <span class="logo-pill">StreetDash Kitchens</span>
+                <span class="logo-pill">CityBasket</span>
+                <span class="logo-pill">Blink Basket Labs</span>
+              </div>
+              <p style="font-size:0.78rem;color:var(--text-muted);">
+                4.8★ average rider rating · 98% partner retention · 0 black‑box metrics.
+              </p>
+            </div>
+            <div class="testimonials">
+              <div class="quote-card">
+                <div class="quote-text">
+                  “Pehle roz ka earnings bas guess hota tha. Ab app me exact dikhta hai – kitna
+                  aaya, kitna incentive, kitna crew bonus. Planning easy ho gaya.”
+                </div>
+                <div class="quote-meta">
+                  Aditya, Rider · Bangalore · 9 months on GridRider
+                </div>
+              </div>
+              <div class="quote-card">
+                <div class="quote-text">
+                  “Live P&amp;L dashboards ne hamari margin control 10x improve kar di. Demand spike
+                  aate hi AI alert aata hai – hum seedha incentives tweak kar dete hain.”
+                </div>
+                <div class="quote-meta">
+                  Rhea, City Operator · Delhi NCR · 22% margin uplift in 90 days
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section id="cta">
+        <div class="max-w final-cta">
+          <h2>Ready to plug into the smart delivery network?</h2>
+          <p>
+            Whether you want to earn more per kilometre or unlock city‑level returns with live
+            visibility, GridRider gives you a transparent, controllable network – not just another
+            app.
+          </p>
+          <div class="hero-ctas" style="justify-content:center;margin-bottom:1rem;">
+            <button class="btn btn-primary">
+              I’m a Rider – show me the app
+            </button>
+            <button class="btn btn-outline">
+              I’m an Investor – book a 20‑min call
+            </button>
+          </div>
+
+          <div class="store-badges">
+            <div class="store-badge">
+              <span>⬇</span>
+              <div>
+                <span>Get it on</span><br />
+                <strong>Google Play</strong>
+              </div>
+            </div>
+            <div class="store-badge">
+              <span>⬇</span>
+              <div>
+                <span>Download on the</span><br />
+                <strong>App Store</strong>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);">
+            0% fake screenshots · 100% live data architecture behind every card you see.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="max-w footer-inner">
+        <div>© <span id="year"></span> GridRider Technologies. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="#top">Home</a>
+          <a href="#riders">Riders</a>
+          <a href="#investors">Investors</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#stories">Stories</a>
+          <a href="mailto:hello@gridrider.network">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll helper
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      window.scrollTo({
+        top: el.offsetTop - 80,
+        behavior: "smooth",
+      });
+    }
+
+    // Year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Counter animation
+    function animateCounters() {
+      const counters = document.querySelectorAll(".counter");
+      counters.forEach((counter) => {
+        const target = parseFloat(counter.getAttribute("data-target") || "0");
+        const decimals = parseInt(counter.getAttribute("data-decimals") || "0", 10);
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function update(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const current = target * progress;
+          counter.textContent = current.toFixed(decimals);
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        }
+
+        requestAnimationFrame(update);
+      });
+    }
+
+    // Trigger counters once on load
+    window.addEventListener("DOMContentLoaded", animateCounters);
+  </script>
+</body>
+</html>
